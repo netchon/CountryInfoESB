@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="countryInfoProxyService" startOnLoad="true" transports="http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <property expression="/soapenv:Envelope/soapenv:Body/coun:CountryRequest/countryISOCode" name="getIsoCode" scope="default" type="STRING" xmlns:coun="http://www.example.com/countryInfo" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"/>
+            <clone>
+                <target>
+                    <sequence>
+                        <sequence key="getCapitalNameSequence"/>
+                    </sequence>
+                </target>
+                <target>
+                    <sequence>
+                        <sequence key="getPhoneCode"/>
+                    </sequence>
+                </target>
+                <target>
+                    <sequence>
+                        <sequence key="getFlagCountrySequence"/>
+                    </sequence>
+                </target>
+            </clone>
+            <aggregate>
+                <completeCondition>
+                    <messageCount max="3" min="3"/>
+                </completeCondition>
+                <onComplete aggregateElementType="root" expression="//m:CapitalCityResult | //m:CountryIntPhoneCodeResult | //m:CountryFlagResult" xmlns:m="http://www.oorsprong.org/websamples.countryinfo">
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <soapenv:Envelope xmlns:coun="http://www.example.com/countryInfo" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                                <soapenv:Header/>
+                                <soapenv:Body>
+                                    <coun:CountryResponse>
+                                        <capitalName xmlns="">$1</capitalName>
+                                        <phoneCodeResult xmlns="">$2</phoneCodeResult>
+                                        <countryFlagResult xmlns="">$3</countryFlagResult>
+                                    </coun:CountryResponse>
+                                </soapenv:Body>
+                            </soapenv:Envelope>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="//m:CapitalCityResult/text()"/>
+                            <arg evaluator="xml" expression="//m:CountryIntPhoneCodeResult/text()"/>
+                            <arg evaluator="xml" expression="//m:CountryFlagResult/text()"/>
+                        </args>
+                    </payloadFactory>
+                    <respond/>
+                </onComplete>
+            </aggregate>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+    <publishWSDL key="contryInfoLocalEntry" preservePolicy="true"/>
+    <parameter name="ApplicationXMLBuilder.allowDTD">true</parameter>
+</proxy>

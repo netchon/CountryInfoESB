@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="contryInfoLocalEntry" groupId="piaget.cv.local-entry" version="1.0" type="synapse/local-entry" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/local-entries/contryInfoLocalEntry.xml</file>
+    </artifact>
+    <artifact name="countryInfoProxyService" groupId="piaget.cv.proxy-service" version="1.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/countryInfoProxyService.xml</file>
+    </artifact>
+    <artifact name="countryInfoProxyService_proxy_metadata" groupId="piaget.cv.metadata" version="1.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/countryInfoProxyService_proxy_metadata.yaml</file>
+    </artifact>
+    <artifact name="getCapitalNameSequence" groupId="piaget.cv.sequence" version="1.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/getCapitalNameSequence.xml</file>
+    </artifact>
+    <artifact name="getPhoneCode" groupId="piaget.cv.sequence" version="1.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/getPhoneCode.xml</file>
+    </artifact>
+    <artifact name="contryInfoWsdlEndpoint" groupId="piaget.cv.endpoint" version="1.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/contryInfoWsdlEndpoint.xml</file>
+    </artifact>
+    <artifact name="getFlagCountrySequence" groupId="piaget.cv.sequence" version="1.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/getFlagCountrySequence.xml</file>
+    </artifact>
+</artifacts>

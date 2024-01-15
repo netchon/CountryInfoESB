@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="contryInfoLocalEntry" xmlns="http://ws.apache.org/ns/synapse">
+    <definitions name="CountryInfoService" targetNamespace="http://www.example.com/countryInfo" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.com/countryInfo" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <types>
+            <xsd:schema targetNamespace="http://www.example.com/countryInfo">
+                <xsd:element name="CountryRequest">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="countryISOCode" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="CountryResponse">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="flagURL" type="xsd:string"/>
+                            <xsd:element name="capital" type="xsd:string"/>
+                            <xsd:element name="language" type="xsd:string"/>
+                            <xsd:element name="phoneCode" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:schema>
+        </types>
+        <message name="CountryRequestMessage">
+            <part element="tns:CountryRequest" name="parameters"/>
+        </message>
+        <message name="CountryResponseMessage">
+            <part element="tns:CountryResponse" name="parameters"/>
+        </message>
+        <portType name="CountryInfoPortType">
+            <operation name="GetCountryInfo">
+                <input message="tns:CountryRequestMessage"/>
+                <output message="tns:CountryResponseMessage"/>
+            </operation>
+        </portType>
+        <binding name="CountryInfoBinding" type="tns:CountryInfoPortType">
+            <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+            <operation name="GetCountryInfo">
+                <soap:operation soapAction="http://www.example.com/countryInfo/GetCountryInfo"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+        </binding>
+        <service name="CountryInfoService">
+            <documentation>This service provides information about countries based on their ISO code.</documentation>
+            <port binding="tns:CountryInfoBinding" name="CountryInfoPort">
+                <soap:address location="http://www.example.com/countryInfoService"/>
+            </port>
+        </service>
+    </definitions>
+</localEntry>

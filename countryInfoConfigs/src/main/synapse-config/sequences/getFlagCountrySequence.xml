@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="getFlagCountrySequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <payloadFactory media-type="xml">
+        <format>
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.oorsprong.org/websamples.countryinfo">
+                <soapenv:Header/>
+                <soapenv:Body>
+                    <web:CountryFlag>
+                        <web:sCountryISOCode>$1</web:sCountryISOCode>
+                    </web:CountryFlag>
+                </soapenv:Body>
+            </soapenv:Envelope>
+        </format>
+        <args>
+            <arg evaluator="xml" expression="$ctx:getIsoCode"/>
+        </args>
+    </payloadFactory>
+    <call>
+        <endpoint key="contryInfoWsdlEndpoint"/>
+    </call>
+</sequence>
